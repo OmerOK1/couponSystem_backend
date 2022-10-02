@@ -78,7 +78,7 @@ public class InitTest implements CommandLineRunner {
                 .endDate(Date.valueOf(LocalDate.now().plusYears(2)))
                 .amount(100)
                 .price(35.99f)
-                .img("https://coca_cola.jpg")
+                .img("https://i.imgur.com/0TGZoQb.jpg")
                 .build();
 
         Coupon cn4 = Coupon.builder()
