@@ -33,11 +33,11 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         System.out.println("got to login method");
         Customer result = customerRepo.findByEmailAndPassword(email, password).orElseThrow(() -> new CouponSysException(ExceptionType.INVALID_EMAIL_AND_PASSWORD));
 
-        Information information = Information.builder().id(result.getId()).email(email).clientType(ClientType.CUSTOMER).expirationTime(LocalDateTime.now().plusMinutes(30)).build();
+        Information information = Information.builder().id(result.getId()).email(email).clientType(ClientType.CUSTOMER).expirationTime(LocalDateTime.now().plusHours(30)).build();
         String name = result.getFirstName() + " " + result.getLastName();
 
         UUID token = tokenManager.addToken(information);
-        return new LoginResponse(token, email, result.getId(), name, ClientType.COMPANY);
+        return new LoginResponse(token, email, result.getId(), name, ClientType.CUSTOMER);
     }
 
     /**

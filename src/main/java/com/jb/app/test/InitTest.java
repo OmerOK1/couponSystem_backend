@@ -188,7 +188,7 @@ public class InitTest implements CommandLineRunner {
         Customer cr2 = Customer.builder()
                 .firstName("Moshe")
                 .lastName("non")
-                .email("moshe@KS.com")
+                .email("moshe@ks.com")
                 .password("Moti$1234")
                 .coupons(Arrays.asList(cn6,cn9))
                 .build();

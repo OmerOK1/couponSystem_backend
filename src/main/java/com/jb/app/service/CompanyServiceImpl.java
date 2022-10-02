@@ -56,17 +56,17 @@ public class CompanyServiceImpl extends ClientService implements CompanyService{
     public Coupon addCoupon(Coupon coupon, UUID token) throws CouponSysException {
         int companyId = tokenManager.getCompanyId(token);
 
-        System.out.println("test 1");
+
         coupon.setCompany(companyRepo.findById(companyId).orElseThrow(()->new CouponSysException(ExceptionType.NO_SUCH_ID)));
 
-        System.out.println("test 2");
-        coupon.setId(0); // only reason it won't be 0 is someone not trying to actually add a new coupon, I could throw an exception here but that just helps potential hackers understand what went wrong. if you choose to add you add.
 
-        //if (coupon.getEndDate().before(coupon.getStartDate())) throw new CouponSysException(ExceptionType.INVALID_DATE);
+        coupon.setId(0);
 
-        System.out.println("test 3");
+        if (coupon.getEndDate().before(coupon.getStartDate())) throw new CouponSysException(ExceptionType.INVALID_DATE);
+
+
         if (couponRepo.existsByNameAndCompanyId(coupon.getName(),companyId)) throw new CouponSysException(ExceptionType.COUPON_NAME_ALREADY_EXISTS);
-        System.out.println("test 4");
+
         couponRepo.save(coupon);
         return coupon;
     }
@@ -85,10 +85,15 @@ public class CompanyServiceImpl extends ClientService implements CompanyService{
         Coupon temp = couponRepo.findByIdAndCompanyId(couponId, coupon.getCompany().getId()).orElseThrow(()->new CouponSysException(ExceptionType.NO_SUCH_ID));
 
         if (!temp.getName().equalsIgnoreCase(coupon.getName()) && couponRepo.existsByNameAndCompanyId(coupon.getName(), couponId)) throw new CouponSysException(ExceptionType.COUPON_NAME_ALREADY_EXISTS);
-        
+
+        if (coupon.getEndDate().before(coupon.getStartDate())) throw new CouponSysException(ExceptionType.INVALID_DATE);
+
+
         coupon.setId(couponId);
 
         couponRepo.saveAndFlush(coupon);
+
+
         return coupon;
     }
 

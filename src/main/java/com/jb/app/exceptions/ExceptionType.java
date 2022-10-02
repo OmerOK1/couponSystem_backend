@@ -11,7 +11,7 @@ public enum ExceptionType {
     COMPANY_NAME_ALREADY_EXISTS(""),
     COUPON_NAME_ALREADY_EXISTS("chosen title cannot be chosen as it already exists for this company"),
     INVALID_CHANGE_REQUEST("tried changing illegal attributes"),
-    INVALID_EMAIL_AND_PASSWORD("email and/or password was incorrect"),
+    INVALID_EMAIL_AND_PASSWORD("email and/or password were incorrect"),
     INCORRECT_LOGIN("login failed, please try again"),
     NO_SUCH_ID("id requested was not found in database"),
     ID_ALREADY_EXITS("cannot create an object with an existing id number"),
