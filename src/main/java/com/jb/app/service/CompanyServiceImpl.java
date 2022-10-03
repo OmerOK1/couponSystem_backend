@@ -21,7 +21,6 @@ import java.util.UUID;
 @Service
 public class CompanyServiceImpl extends ClientService implements CompanyService{
 
-
     public CompanyServiceImpl(CustomerRepo customerRepo, CompanyRepository companyRepo, CouponRepository couponRepo, TokenManager tokenManager) {
         super(customerRepo, companyRepo, couponRepo, tokenManager);
     }

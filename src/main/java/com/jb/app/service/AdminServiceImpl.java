@@ -13,6 +13,7 @@ import com.jb.app.security.LoginResponse;
 import com.jb.app.security.TokenManager;
 import com.jb.app.utils.ValidationUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,7 +22,6 @@ import java.util.UUID;
 
 @Service
 public class AdminServiceImpl extends ClientService implements AdminService{
-
 
     public AdminServiceImpl(CustomerRepo customerRepo, CompanyRepository companyRepo, CouponRepository couponRepo, TokenManager tokenManager) {
         super(customerRepo, companyRepo, couponRepo, tokenManager);
@@ -37,7 +37,7 @@ public class AdminServiceImpl extends ClientService implements AdminService{
     @Override
     public LoginResponse login(String email, String password) throws CouponSysException {
         if (!(email.equalsIgnoreCase("admin@admin.com")&& password.equals("Admin123"))) throw new CouponSysException(ExceptionType.INVALID_EMAIL_AND_PASSWORD);
-        Information information = Information.builder().expirationTime(LocalDateTime.now().plusMinutes(30)).email("admin@admin.com").clientType(ClientType.ADMINISTRATOR).id(-1).build();
+        Information information = Information.builder().expirationTime(LocalDateTime.now().plusHours(30)).email("admin@admin.com").clientType(ClientType.ADMINISTRATOR).id(-1).build();
 
         UUID token = tokenManager.addToken(information);
         if (token == null) throw new CouponSysException(ExceptionType.INCORRECT_LOGIN);
@@ -61,7 +61,9 @@ public class AdminServiceImpl extends ClientService implements AdminService{
     }
 
     @Override
+    @Transactional
     public Company updateCompany(UUID token, Company company, int companyId) throws CouponSysException {
+        System.out.println("vefore: " + company);
         isAdmin(token);
 
         if (!ValidationUtils.isValidPassword(company.getPassword())) throw new CouponSysException(ExceptionType.INVALID_PASSWORD);
@@ -72,6 +74,7 @@ public class AdminServiceImpl extends ClientService implements AdminService{
 
         company.setId(companyId); //insurance policy, no more hackers with hoodies
 
+        System.out.println("after method: " + company);
         companyRepo.saveAndFlush(company);
         return company;
     }

@@ -19,10 +19,10 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, updatable = false)//add a check in service so you don't depend on db to throw error
+    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)

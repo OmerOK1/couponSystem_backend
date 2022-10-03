@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 @RequiredArgsConstructor
 @RequestMapping("admin/")
 public class AdminController {

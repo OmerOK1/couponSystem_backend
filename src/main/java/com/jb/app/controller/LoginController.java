@@ -7,7 +7,7 @@ import com.jb.app.security.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("login")
