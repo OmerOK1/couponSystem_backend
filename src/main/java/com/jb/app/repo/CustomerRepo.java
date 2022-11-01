@@ -23,7 +23,7 @@ public interface CustomerRepo extends JpaRepository<Customer,Integer> {
 
     boolean existsByEmail(String email);
 
-    @Query(value = "SELECT CASE WHEN EXISTS (SELECT * FROM caasii.coupons inner join caasii.customers_coupons where coupons_id = (?1) and customer_id = (?2)) THEN 'true' ELSE 'false' END", nativeQuery = true)
+    @Query(value = "SELECT CASE WHEN EXISTS (SELECT * FROM coupons inner join customers_coupons where coupons_id = (?1) and customer_id = (?2)) THEN 'true' ELSE 'false' END", nativeQuery = true)
     boolean existsByCustomerIdAndCouponId(int couponId, int customerId);
 
     boolean existsByEmailAndId(String email, int id);
