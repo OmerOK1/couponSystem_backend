@@ -20,7 +20,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PutMapping("/coupons/{id}") // id = couponId
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void purchaseCoupon(@PathVariable int id, @RequestHeader("Authorization") UUID token) throws CouponSysException {
         customerService.purchaseCoupon(id, token);
     }
